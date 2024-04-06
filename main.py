@@ -40,6 +40,31 @@ def search_contact():
         output+=str(row)
     msgbox(output, 'Найденные контакты')
 
+def edit_contact():
+    nameToEdit=enterbox("Введите контакт для редактирования:")
+    while True:
+        edit_choice = choicebox("Выберите поле для редактирования", "Главная форма", ['Имя', 'Электронная почта', 'Дата рождения', 'Основной номер телефона', 'Второй номер телефона', 'Выход'])
+        if edit_choice == "Имя":
+            newname=enterbox("Введите новое имя контакта:")
+            cur.execute("UPDATE  contacts SET name=? WHERE name=?", (newname, nameToEdit))
+        conn.commit()
+        if edit_choice == "Электронная почта":
+            newMail=enterbox("Введите новый адрес электронной почты:")
+            cur.execute("UPDATE  contacts SET mail=? where name=?", (newMail, nameToEdit))
+        conn.commit()
+        if edit_choice == "Дата рождения":
+            newBirthday=enterbox("Введите новую дату рождения:")
+            cur.execute("UPDATE  contacts SET birthday=? where name=?", (newBirthday, nameToEdit))
+        if edit_choice == "Основной номер телефона":
+            newtNumber1=enterbox("Введите новый основной номер телефона:")
+            cur.execute("UPDATE  contacts SET tNumber1=? where name=?", (newtNumber1, nameToEdit))
+        if edit_choice == "Второй номер телефона":
+            newtNumber2=enterbox("Введите новый второй номер телефона:")
+            cur.execute("UPDATE  contacts SET tNumber2=? where name=?", (newtNumber2, nameToEdit))
+        if edit_choice == "Выход":
+            break
+    conn.commit()
+    msgbox("Контакты успешно отредактирован!")
 
 def main():
         while True:
